@@ -10,7 +10,6 @@
 #define ADDED_GARBAGE_REQUEST (5)
 #define QUEUE_SIZE (TaskFunction_NUM)
 
-// queue
 extern QueueHandle_t queue;
 // mutex to avoid race condition when accessing queue and ProcessReady
 // the esp32 have two core after all

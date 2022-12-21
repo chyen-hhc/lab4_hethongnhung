@@ -8,7 +8,6 @@
 #include <inttypes.h>
 #include <stdio.h>
 
-
 static inline uint8_t allProcess_ready()
 {
     for (uint32_t i = 0; i < TaskFunction_NUM; i++)
@@ -39,7 +38,6 @@ static inline void WakeUpAllFunctional()
     }
 }
 
-// check debug
 static inline void debug_print_ProcessReady()
 {
     for (uint32_t i = 0; i < TaskFunction_NUM; i++)
@@ -51,7 +49,7 @@ static inline void debug_print_ProcessReady()
 
 void TaskFunction(void *param)
 {
-    size_t id = (size_t) param;
+    size_t id = (size_t)param;
 
     while (1)
     {
@@ -60,9 +58,7 @@ void TaskFunction(void *param)
         {
             if (new_req.idTask == id)
             {
-                // remove the request from queue
-                xQueueReceive(queue, &new_req, portMAX_DELAY); 
-
+                xQueueReceive(queue, &new_req, portMAX_DELAY);
                 xSemaphoreTake(mt, portMAX_DELAY);
                 ClearAllReadyProcess();
                 xSemaphoreGive(mt);
@@ -87,7 +83,6 @@ void TaskFunction(void *param)
 
     vTaskDelete(NULL);
 }
-
 
 void TaskForCleanGarbageRequest(void *param)
 {
